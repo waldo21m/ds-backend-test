@@ -7,6 +7,7 @@ import { createSchema } from '../schemas/contentType.schema';
 const router = Router();
 
 router.get('/', contentTypeController.findAll);
+router.get('/:contentTypeId/topics', contentTypeController.findTopicsByContentTypeId);
 router.post('/', authenticateJWT, validationHandler(createSchema), contentTypeController.create);
 
 export default router;

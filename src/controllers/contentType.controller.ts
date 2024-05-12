@@ -4,6 +4,7 @@ import { UserTypes } from '../utils/userTypes.enum';
 import boom from '@hapi/boom';
 import { IContentType } from '../interfaces/ContentType.interface';
 import * as ContentTypeService from '../services/contentType.service';
+import * as TopicService from '../services/topic.service';
 
 const findAll = async (_: Request, res: Response, next: NextFunction) => {
   try {
@@ -12,6 +13,17 @@ const findAll = async (_: Request, res: Response, next: NextFunction) => {
     return res.json({ contentTypes });
   } catch (error) {
     next(boom.badImplementation('Failed to fetch content types'));
+  }
+};
+
+const findTopicsByContentTypeId = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const contentTypeId = req.params.contentTypeId as string
+    const topics = await TopicService.findTopicsByContentTypeId(contentTypeId);
+
+    return res.json({ topics });
+  } catch (error) {
+    next(boom.badImplementation('Failed to fetch topics by content type id'));
   }
 };
 
@@ -37,5 +49,6 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 
 export default {
   findAll,
+  findTopicsByContentTypeId,
   create,
 };
