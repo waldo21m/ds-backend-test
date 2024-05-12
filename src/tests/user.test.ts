@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import app from '../index';
 import * as db from './db';
 import * as UserService from '../services/user.service';
+import bcrypt from 'bcrypt';
 import { UserTypes } from '../utils/userTypes.enum';
 
 dotenv.config();
@@ -45,6 +46,120 @@ describe('User router /users', () => {
     });
   });
 
+  it('POST /signIn Authenticate a user', async () => {
+    const mockUser = {
+      username: 'testing01',
+      email: 'test@mail.com',
+      password: '123456789',
+      userType: UserTypes.Reader,
+    };
+
+    (UserService.findByEmailOrUsername as jest.Mock).mockImplementation(() =>
+      Promise.resolve(mockUser),
+    );
+
+    const bcryptCompare = jest.fn().mockResolvedValue(true);
+    (bcrypt.compare as jest.Mock) = bcryptCompare;
+
+    const res = await request(app)
+      .post(prefix + '/users/signIn')
+      .send({
+        emailOrUsername: mockUser.email,
+        password: mockUser.password,
+      });
+
+    expect(res.statusCode).toEqual(200);
+
+    expect(res.body.token).toBeDefined();
+  });
+
+  it('POST /signIn Authenticate a user - Should return an error if the user does not exist', async () => {
+    const mockUser = {
+      username: 'testing01',
+      email: 'test@mail.com',
+      password: '123456789',
+      userType: UserTypes.Reader,
+    };
+  
+    (UserService.findByEmailOrUsername as jest.Mock).mockImplementation(() =>
+      Promise.resolve(null),
+    );
+  
+    const res = await request(app)
+      .post(prefix + '/users/signIn')
+      .send({
+        emailOrUsername: mockUser.email,
+        password: mockUser.password,
+      });
+  
+    expect(res.statusCode).toEqual(401);
+  
+    expect(res.body).toEqual({
+      statusCode: 401,
+      error: 'Unauthorized',
+      message: "The user doesn't exists",
+    });
+  });
+  
+  it('POST /signIn Authenticate a user - Should return an error if the password is incorrect', async () => {
+    const mockUser = {
+      username: 'testing01',
+      email: 'test@mail.com',
+      password: 'wrongpassword',
+      userType: UserTypes.Reader,
+    };
+  
+    (UserService.findByEmailOrUsername as jest.Mock).mockImplementation(() =>
+      Promise.resolve(mockUser),
+    );
+
+    const bcryptCompare = jest.fn().mockResolvedValue(false);
+    (bcrypt.compare as jest.Mock) = bcryptCompare;
+  
+    const res = await request(app)
+      .post(prefix + '/users/signIn')
+      .send({
+        emailOrUsername: mockUser.email,
+        password: mockUser.password,
+      });
+  
+    expect(res.statusCode).toEqual(401);
+  
+    expect(res.body).toEqual({
+      statusCode: 401,
+      error: 'Unauthorized',
+      message: 'Unauthorized',
+    });
+  });
+  
+  it('POST /signIn Authenticate a user - Should handle errors', async () => {
+    const mockUser = {
+      username: 'testing01',
+      email: 'test@mail.com',
+      password: '123456789',
+      userType: UserTypes.Reader,
+    };
+  
+    (UserService.findByEmailOrUsername as jest.Mock).mockImplementation(() => {
+      throw new Error('Failed to sign in');
+    });
+  
+    const res = await request(app)
+      .post(prefix + '/users/signIn')
+      .send({
+        emailOrUsername: mockUser.email,
+        password: mockUser.password,
+      });
+  
+    expect(res.statusCode).toEqual(500);
+  
+    expect(res.body).toEqual({
+      statusCode: 500,
+      error: 'Internal Server Error',
+      message: 'An internal server error occurred',
+    });
+  });
+
   it('POST /signUp Create a new user', async () => {
     const mockUser = {
       username: 'testing01',
@@ -52,6 +167,10 @@ describe('User router /users', () => {
       password: '123456789',
       userType: UserTypes.Reader,
     };
+
+    (UserService.findByEmailOrUsername as jest.Mock).mockImplementation(() =>
+      Promise.resolve(null),
+    );
 
     (UserService.create as jest.Mock).mockImplementation(() =>
       Promise.resolve(mockUser),
