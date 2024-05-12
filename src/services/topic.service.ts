@@ -16,6 +16,15 @@ export const findAll = async (search: string) => {
   return topics;
 };
 
+export const findTopicsByContentTypeId = async (contentTypeId: string) => {
+  const topics = await Topic.find({
+    contentPermissions: contentTypeId,
+    isDeleted: false,
+  }).select('_id name coverImage').exec();
+
+  return topics;
+};
+
 export const findById = async (id: string) => {
   const topic = await Topic.findOne({ _id: id, isDeleted: false }).exec();
 
