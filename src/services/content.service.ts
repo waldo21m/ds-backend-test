@@ -60,7 +60,6 @@ export const countContentsByUserId = async (userId: string) => {
   return count;
 };
 
-//!SECTION
 export const findContentsByTopicId = async (
   page: number,
   limit: number,
@@ -82,6 +81,33 @@ export const findContentsByTopicId = async (
 export const countContentsByTopicId = async (topicId: string) => {
   const count = await Content.countDocuments({
     topic: topicId,
+    isDeleted: false,
+  }).exec();
+
+  return count;
+};
+
+export const findContentsByContentTypeId = async (
+  page: number,
+  limit: number,
+  contentTypeId: string,
+) => {
+  const offset = (page - 1) * limit;
+
+  const contents = await Content.find({
+    contentType: contentTypeId,
+    isDeleted: false,
+  })
+    .skip(offset)
+    .limit(limit)
+    .exec();
+
+  return contents;
+};
+
+export const countContentsByContentTypeId = async (contentTypeId: string) => {
+  const count = await Content.countDocuments({
+    contentType: contentTypeId,
     isDeleted: false,
   }).exec();
 
