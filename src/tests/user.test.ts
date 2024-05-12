@@ -46,7 +46,7 @@ describe('User router /users', () => {
     });
   });
 
-  it('POST /signIn Authenticate a user', async () => {
+  it('POST /sign-in Authenticate a user', async () => {
     const mockUser = {
       username: 'testing01',
       email: 'test@mail.com',
@@ -62,7 +62,7 @@ describe('User router /users', () => {
     (bcrypt.compare as jest.Mock) = bcryptCompare;
 
     const res = await request(app)
-      .post(prefix + '/users/signIn')
+      .post(prefix + '/users/sign-in')
       .send({
         emailOrUsername: mockUser.email,
         password: mockUser.password,
@@ -73,7 +73,7 @@ describe('User router /users', () => {
     expect(res.body.token).toBeDefined();
   });
 
-  it('POST /signIn Authenticate a user - Should return an error if the user does not exist', async () => {
+  it('POST /sign-in Authenticate a user - Should return an error if the user does not exist', async () => {
     const mockUser = {
       username: 'testing01',
       email: 'test@mail.com',
@@ -86,7 +86,7 @@ describe('User router /users', () => {
     );
   
     const res = await request(app)
-      .post(prefix + '/users/signIn')
+      .post(prefix + '/users/sign-in')
       .send({
         emailOrUsername: mockUser.email,
         password: mockUser.password,
@@ -101,7 +101,7 @@ describe('User router /users', () => {
     });
   });
   
-  it('POST /signIn Authenticate a user - Should return an error if the password is incorrect', async () => {
+  it('POST /sign-in Authenticate a user - Should return an error if the password is incorrect', async () => {
     const mockUser = {
       username: 'testing01',
       email: 'test@mail.com',
@@ -117,7 +117,7 @@ describe('User router /users', () => {
     (bcrypt.compare as jest.Mock) = bcryptCompare;
   
     const res = await request(app)
-      .post(prefix + '/users/signIn')
+      .post(prefix + '/users/sign-in')
       .send({
         emailOrUsername: mockUser.email,
         password: mockUser.password,
@@ -132,7 +132,7 @@ describe('User router /users', () => {
     });
   });
   
-  it('POST /signIn Authenticate a user - Should handle errors', async () => {
+  it('POST /sign-in Authenticate a user - Should handle errors', async () => {
     const mockUser = {
       username: 'testing01',
       email: 'test@mail.com',
@@ -145,7 +145,7 @@ describe('User router /users', () => {
     });
   
     const res = await request(app)
-      .post(prefix + '/users/signIn')
+      .post(prefix + '/users/sign-in')
       .send({
         emailOrUsername: mockUser.email,
         password: mockUser.password,
@@ -160,7 +160,7 @@ describe('User router /users', () => {
     });
   });
 
-  it('POST /signUp Create a new user', async () => {
+  it('POST /sign-up Create a new user', async () => {
     const mockUser = {
       username: 'testing01',
       email: 'test@mail.com',
@@ -177,7 +177,7 @@ describe('User router /users', () => {
     );
 
     const res = await request(app)
-      .post(prefix + '/users/signUp')
+      .post(prefix + '/users/sign-up')
       .send(mockUser);
 
     expect(res.statusCode).toEqual(201);
@@ -185,7 +185,7 @@ describe('User router /users', () => {
     expect(res.body.token).toBeDefined();
   });
 
-  it('POST /signUp Create a new user - Should return an error if the user schema is invalid', async () => {
+  it('POST /sign-up Create a new user - Should return an error if the user schema is invalid', async () => {
     const mockUser = {
       username: 'testing01',
       email: 'test@mail.com',
@@ -194,7 +194,7 @@ describe('User router /users', () => {
     };
 
     const res = await request(app)
-      .post(prefix + '/users/signUp')
+      .post(prefix + '/users/sign-up')
       .send(mockUser);
 
     expect(res.statusCode).toEqual(400);
@@ -206,7 +206,7 @@ describe('User router /users', () => {
     });
   });
 
-  it('POST /signUp Create a new user - Should return an error if the user already exists', async () => {
+  it('POST /sign-up Create a new user - Should return an error if the user already exists', async () => {
     const mockUser = {
       username: 'testing01',
       email: 'test@mail.com',
@@ -219,7 +219,7 @@ describe('User router /users', () => {
     );
 
     const res = await request(app)
-      .post(prefix + '/users/signUp')
+      .post(prefix + '/users/sign-up')
       .send(mockUser);
 
     expect(res.statusCode).toEqual(400);
@@ -231,7 +231,7 @@ describe('User router /users', () => {
     });
   });
 
-  it('POST /signUp Create a new user - Should handle errors', async () => {
+  it('POST /sign-up Create a new user - Should handle errors', async () => {
     const mockUser = {
       username: 'testing01',
       email: 'test@mail.com',
@@ -248,7 +248,7 @@ describe('User router /users', () => {
     });
 
     const res = await request(app)
-      .post(prefix + '/users/signUp')
+      .post(prefix + '/users/sign-up')
       .send(mockUser);
 
     expect(res.statusCode).toEqual(500);
