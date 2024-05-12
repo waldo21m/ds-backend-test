@@ -48,6 +48,27 @@ const findContentsByContentTypeId = async (req: Request, res: Response, next: Ne
   }
 };
 
+const findContentsByContentTypeIdAndTopicId = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 20;
+    const contentTypeId = req.params.contentTypeId as string
+    const topicId = req.params.topicId as string
+    const contents = await ContentService.findContentsByContentTypeIdAndTopicId(page, limit, contentTypeId, topicId);
+
+    const totalContents = await ContentService.countContentsByContentTypeIdAndTopicId(contentTypeId, topicId);
+
+    const totalPages = Math.ceil(totalContents / limit);
+
+    return res.json({
+      contents,
+      totalPages,
+    });
+  } catch (error) {
+    next(boom.badImplementation('Failed to fetch contents by user id'));
+  }
+};
+
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (req.user?.userType !== UserTypes.Admin) {
@@ -72,5 +93,6 @@ export default {
   findAll,
   findTopicsByContentTypeId,
   findContentsByContentTypeId,
+  findContentsByContentTypeIdAndTopicId,
   create,
 };

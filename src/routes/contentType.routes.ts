@@ -14,6 +14,11 @@ router.get(
   queryParamsCheckerMiddleware({ page: false, limit: false }),
   contentTypeController.findContentsByContentTypeId,
 );
+router.get(
+  '/:contentTypeId/topics/:topicId/contents',
+  queryParamsCheckerMiddleware({ page: false, limit: false }),
+  contentTypeController.findContentsByContentTypeIdAndTopicId,
+);
 router.post('/', authenticateJWT, validationHandler(createSchema), contentTypeController.create);
 
 export default router;

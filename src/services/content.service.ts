@@ -114,6 +114,36 @@ export const countContentsByContentTypeId = async (contentTypeId: string) => {
   return count;
 };
 
+export const findContentsByContentTypeIdAndTopicId = async (
+  page: number,
+  limit: number,
+  contentTypeId: string,
+  topicId: string,
+) => {
+  const offset = (page - 1) * limit;
+
+  const contents = await Content.find({
+    contentType: contentTypeId,
+    topic: topicId,
+    isDeleted: false,
+  })
+    .skip(offset)
+    .limit(limit)
+    .exec();
+
+  return contents;
+};
+
+export const countContentsByContentTypeIdAndTopicId = async (contentTypeId: string, topicId: string) => {
+  const count = await Content.countDocuments({
+    contentType: contentTypeId,
+    topic: topicId,
+    isDeleted: false,
+  }).exec();
+
+  return count;
+};
+
 export const findById = async (id: string) => {
   const content = await Content.findOne({ _id: id, isDeleted: false }).exec();
 
