@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import userController from '../controllers/user.controller';
-import { validationHandler } from '../middlewares/validationHandler';
+import { validationHandler } from '../middlewares/validationHandler.middleware';
 import { signInSchema, signUpSchema } from '../schemas/user.schema';
-import { queryParamsCheckerMiddleware } from '../middlewares/queryParamsChecker';
+import { queryParamsCheckerMiddleware } from '../middlewares/queryParamsChecker.middleware';
 
 const router = Router();
 

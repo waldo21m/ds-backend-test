@@ -10,7 +10,7 @@ import {
   errorHandler,
   logErrors,
   wrapErrors,
-} from './middlewares/errorHandler';
+} from './middlewares/errorHandler.middleware';
 
 dotenv.config();
 
