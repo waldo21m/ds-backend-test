@@ -7,6 +7,12 @@ export const findAll = async () => {
   return contentTypes;
 };
 
+export const countContentTypes = async () => {
+  const count = await ContentType.countDocuments({ isDeleted: false }).exec();
+
+  return count;
+};
+
 export const findById = async (id: string) => {
   const contentType = await ContentType.findOne({ _id: id, isDeleted: false }).exec();
 
