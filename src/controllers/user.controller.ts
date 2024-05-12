@@ -9,11 +9,21 @@ dotenv.config();
 
 const bcryptSaltRound = process.env.BCRYPT_SALT_ROUNDS ? +process.env.BCRYPT_SALT_ROUNDS : 10;
 
-const findAll = async (_: Request, res: Response, next: NextFunction) => {
+const findAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const users = await UserService.findAll(0, 20);
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 20;
 
-    return res.json(users);
+    const users = await UserService.findAll(page, limit);
+
+    const totalUsers = await UserService.countUsers();
+
+    const totalPages = Math.ceil(totalUsers / limit);
+
+    return res.json({
+      users,
+      totalPages,
+    });
   } catch (error) {
     next(boom.badImplementation('Failed to fetch users'));
   }
