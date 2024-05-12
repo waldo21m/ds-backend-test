@@ -16,6 +16,12 @@ export const findAll = async (search: string) => {
   return topics;
 };
 
+export const countTopics = async () => {
+  const count = await Topic.countDocuments({ isDeleted: false }).exec();
+
+  return count;
+};
+
 export const findTopicsByContentTypeId = async (contentTypeId: string) => {
   const topics = await Topic.find({
     contentPermissions: contentTypeId,

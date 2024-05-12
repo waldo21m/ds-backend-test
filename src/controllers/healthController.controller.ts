@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import boom from '@hapi/boom';
 import * as UserService from '../services/user.service';
 import * as ContentTypeService from '../services/contentType.service';
+import * as TopicService from '../services/topic.service';
 import { IUser } from '../interfaces/User.interface';
 import { UserTypes } from '../utils/userTypes.enum';
 import { IContentType } from '../interfaces/ContentType.interface';
@@ -26,6 +27,7 @@ const healthCheck = async (
   try {
     const usersCount = await UserService.countUsers();
     const contentTypesCount = await ContentTypeService.countContentTypes();
+    const topicsCount = await TopicService.countTopics();
 
     if (usersCount === 0) {
       const password = await bcrypt.hash(adminPassword, bcryptSaltRound);
@@ -45,11 +47,52 @@ const healthCheck = async (
       const contentType2: IContentType = { name: 'Videos-url YouTube' };
       const contentType3: IContentType = { name: 'Documentos txt' };
 
-      await Promise.all([
-        ContentTypeService.create(contentType1),
-        ContentTypeService.create(contentType2),
-        ContentTypeService.create(contentType3),
-      ]);
+      const newContentType1 = await ContentTypeService.create(contentType1);
+      const newContentType2 = await ContentTypeService.create(contentType2);
+      const newContentType3 = await ContentTypeService.create(contentType3);
+
+      if (topicsCount === 0) {
+        const topicBody1 = {
+          name: 'Ciencias',
+          contentPermissions: [
+            newContentType1._id,
+            newContentType2._id,
+            newContentType3._id,
+          ],
+          coverImage: 'https://dummyimage.com/1920x400/9fa8da/ffffff&text=Ciencias',
+        };
+        const topicBody2 = {
+          name: 'Matemáticas',
+          contentPermissions: [
+            newContentType2._id,
+            newContentType3._id,
+          ],
+          coverImage: 'https://dummyimage.com/1920x400/9fa8da/ffffff&text=Matemáticas',
+        };
+        const topicBody3 = {
+          name: 'Deportes',
+          contentPermissions: [
+            newContentType1._id,
+            newContentType2._id,
+          ],
+          coverImage: 'https://dummyimage.com/1920x400/9fa8da/ffffff&text=Deportes',
+        };
+        const topicBody4 = {
+          name: 'Deportes acuáticos',
+          contentPermissions: [
+            newContentType1._id,
+            newContentType2._id,
+          ],
+          coverImage: 'https://dummyimage.com/1920x400/9fa8da/ffffff&text=DA',
+        };
+
+        await Promise.all([
+          TopicService.create(topicBody1),
+          TopicService.create(topicBody2),
+          TopicService.create(topicBody3),
+          TopicService.create(topicBody4),
+        ]);
+      }
     }
 
     return res.json({ message: 'Deploy successfully' });
