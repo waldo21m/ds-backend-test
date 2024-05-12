@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import boom from '@hapi/boom';
+import jwt from 'jsonwebtoken';
 import { IUser } from '../interfaces/User.interface';
 import * as UserService from '../services/user.service';
 
@@ -53,13 +54,7 @@ const signIn = async (req: Request, res: Response, next: NextFunction) => {
       return next(boom.unauthorized('Unauthorized'));
     }
 
-    return res.json({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      userType: user.userType,
-      createdContents: user.createdContents,
-    });
+    responseWithJWT(res, user);
   } catch (error) {
     next(boom.badImplementation('Failed to sign in'));
   }
@@ -80,11 +75,25 @@ const signUp = async (req: Request, res: Response, next: NextFunction) => {
 
     const newUser = await UserService.create(req.body as IUser);
 
-    return res.status(201).json(newUser);
+    responseWithJWT(res, newUser, 201);
   } catch (error) {
     next(boom.badImplementation('Failed to create user'));
   }
 };
+
+function responseWithJWT(res: Response, user: Partial<IUser>, status = 200) {
+  const token = jwt.sign(
+    {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      userType: user.userType,
+    },
+    process.env.JWT_SECRET!,
+  );
+
+  return res.status(status).json({ token: `Bearer ${token}` });
+}
 
 export default {
   findAll,

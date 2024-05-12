@@ -5,7 +5,7 @@ export const findAll = async (page: number, limit: number) => {
   const offset = (page - 1) * limit;
 
   const users = await User.find({ isDeleted: false })
-    .select('_id username email userType createdContents')
+    .select('_id username email userType')
     .skip(offset)
     .limit(limit)
     .exec();
@@ -38,7 +38,9 @@ export const findByEmailOrUsername = async (
   return await User.findOne({
     $or: [{ email }, { username }],
     isDeleted: false,
-  }).exec();
+  })
+    .select('_id username email password userType')
+    .exec();
 };
 
 export const create = async (user: IUser) => {
