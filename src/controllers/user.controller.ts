@@ -5,6 +5,7 @@ import boom from '@hapi/boom';
 import jwt from 'jsonwebtoken';
 import { IUser } from '../interfaces/User.interface';
 import * as UserService from '../services/user.service';
+import * as ContentService from '../services/content.service';
 
 dotenv.config();
 
@@ -29,6 +30,26 @@ const findAll = async (req: Request, res: Response, next: NextFunction) => {
     });
   } catch (error) {
     next(boom.badImplementation('Failed to fetch users'));
+  }
+};
+
+const findContentsByUserId = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 20;
+    const userId = req.params.userId as string
+    const contents = await ContentService.findContentsByUserId(page, limit, userId);
+
+    const totalContents = await ContentService.countContentsByUserId(userId);
+
+    const totalPages = Math.ceil(totalContents / limit);
+
+    return res.json({
+      contents,
+      totalPages,
+    });
+  } catch (error) {
+    next(boom.badImplementation('Failed to fetch contents by user id'));
   }
 };
 
@@ -97,6 +118,7 @@ function responseWithJWT(res: Response, user: Partial<IUser>, status = 200) {
 
 export default {
   findAll,
+  findContentsByUserId,
   signIn,
   signUp,
 };

@@ -13,10 +13,7 @@ export const findAll = async (page: number, limit: number, search: string) => {
     };
   }
 
-  const contents = await Content.find(query)
-    .skip(offset)
-    .limit(limit)
-    .exec();
+  const contents = await Content.find(query).skip(offset).limit(limit).exec();
 
   return contents;
 };
@@ -32,6 +29,33 @@ export const countContents = async (search: string) => {
   }
 
   const count = await Content.countDocuments(query).exec();
+
+  return count;
+};
+
+export const findContentsByUserId = async (
+  page: number,
+  limit: number,
+  userId: string,
+) => {
+  const offset = (page - 1) * limit;
+
+  const contents = await Content.find({
+    createdBy: userId,
+    isDeleted: false,
+  })
+    .skip(offset)
+    .limit(limit)
+    .exec();
+
+  return contents;
+};
+
+export const countContentsByUserId = async (userId: string) => {
+  const count = await Content.countDocuments({
+    createdBy: userId,
+    isDeleted: false,
+  }).exec();
 
   return count;
 };
