@@ -5,7 +5,7 @@ import contentTypeRoutes from './contentType.routes';
 import topicRoutes from './topic.routes';
 import contentRoutes from './content.routes';
 import blacklistedTokenController from '../controllers/blacklistedToken.controller';
-import healthController from '../controllers/healthController.controller';
+import healthController from '../controllers/health.controller';
 
 dotenv.config();
 
