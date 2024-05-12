@@ -6,7 +6,11 @@ import helmet from 'helmet';
 import router from './routes/index.routes';
 import http from 'http';
 import MongoDatabase from './config/db';
-import { errorHandler, logErrors, wrapErrors } from './middlewares/errorHandler';
+import {
+  errorHandler,
+  logErrors,
+  wrapErrors,
+} from './middlewares/errorHandler.middleware';
 
 dotenv.config();
 
@@ -52,7 +56,7 @@ app.use(errorHandler);
 let server: http.Server;
 
 export const startServer = async (callback: () => void) => {
-  await MongoDatabase.getInstance()
+  await MongoDatabase.getInstance();
   server = app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
     callback();

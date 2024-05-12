@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const dbHost = process.env.DB_HOST ?? 'localhost';
-const dbPort = process.env.DB_PORT ?? '27017';
-const dbName = process.env.DB_DATABASE ?? 'ds_express';
+const dbHost = process.env.DB_HOST || 'localhost';
+const dbPort = process.env.DB_PORT || '27017';
+const dbName = process.env.DB_DATABASE || 'ds_express';
 const dbUsername = process.env.DB_USERNAME;
 const dbPassword = process.env.DB_PASSWORD;
 
