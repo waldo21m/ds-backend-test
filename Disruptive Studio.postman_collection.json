@@ -1,0 +1,838 @@
+{
+	"info": {
+		"_postman_id": "33c8a910-d75d-4a6e-989b-dd41e43cad90",
+		"name": "Disruptive Studio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5496425"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Find all users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/users?page=1&limit=20",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find contents by user id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/users/8ab70b31-0af6-47b3-9fa4-d8a6178d9294/contents?page=1&limit=20",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"8ab70b31-0af6-47b3-9fa4-d8a6178d9294",
+								"contents"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign in (login)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"emailOrUsername\": \"admin\",\n    \"password\": \"admin123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/users/sign-in",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"waldo21m\",\n    \"email\": \"eduardo20.3263@gmail.com\",\n    \"password\": \"12345678\",\n    \"userType\": \"Creador\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/users/sign-up",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Content types",
+			"item": [
+				{
+					"name": "Find all content types",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/content-types",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"content-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find topics by content type id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI5MDkzNjdjYy02MDU5LTQwNWEtOTRiNS0yZThiYWI4ZTZlYTQiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkB0ZXN0LmNvbSIsInVzZXJUeXBlIjoiQWRtaW4iLCJpYXQiOjE3MTU1MzcxODB9.JjYEWigP14X1BtPKEcPX-f7TUk6q2RGqGewewMta6Oo"
+							}
+						],
+						"url": {
+							"raw": "localhost:4000/api/v1/content-types/c1d49a31-1025-451b-b6b2-9601789371cb/topics",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"content-types",
+								"c1d49a31-1025-451b-b6b2-9601789371cb",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find contents by content type id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/content-types/07b2fc50-c1db-44e1-9dbf-239bacb658f2/contents?page=1&limit=20",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"content-types",
+								"07b2fc50-c1db-44e1-9dbf-239bacb658f2",
+								"contents"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find contents by content type id and topic id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/content-types/07b2fc50-c1db-44e1-9dbf-239bacb658f2/topics/0c833ea3-7ba6-4c40-8f09-7bfe3cd424f6/contents?page=1&limit=20",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"content-types",
+								"07b2fc50-c1db-44e1-9dbf-239bacb658f2",
+								"topics",
+								"0c833ea3-7ba6-4c40-8f09-7bfe3cd424f6",
+								"contents"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create content type",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI3ZWQ1YmVmNS1iYmEzLTQ4NDItOTVlZS1jYWZhZWU4OTJkM2UiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkB0ZXN0LmNvbSIsInVzZXJUeXBlIjoiQWRtaW4iLCJpYXQiOjE3MTU1MzUxOTd9.rWqxHg44zlXXJ7WYJlqJdgImfoBWmmSADL1NwOOH4jI"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Imágenes\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/content-types",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"content-types"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Topics",
+			"item": [
+				{
+					"name": "Find all topics",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI5MDkzNjdjYy02MDU5LTQwNWEtOTRiNS0yZThiYWI4ZTZlYTQiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkB0ZXN0LmNvbSIsInVzZXJUeXBlIjoiQWRtaW4iLCJpYXQiOjE3MTU1MzcxODB9.JjYEWigP14X1BtPKEcPX-f7TUk6q2RGqGewewMta6Oo"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/topics",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find all topics by search params",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI5MDkzNjdjYy02MDU5LTQwNWEtOTRiNS0yZThiYWI4ZTZlYTQiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkB0ZXN0LmNvbSIsInVzZXJUeXBlIjoiQWRtaW4iLCJpYXQiOjE3MTU1MzcxODB9.JjYEWigP14X1BtPKEcPX-f7TUk6q2RGqGewewMta6Oo"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/topics?search=Deportes%20Acuáticos",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"topics"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Deportes%20Acuáticos"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find contents by topic id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/topics/0c833ea3-7ba6-4c40-8f09-7bfe3cd424f6/contents?page=1&limit=20",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"topics",
+								"0c833ea3-7ba6-4c40-8f09-7bfe3cd424f6",
+								"contents"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create topic",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI5MDkzNjdjYy02MDU5LTQwNWEtOTRiNS0yZThiYWI4ZTZlYTQiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkB0ZXN0LmNvbSIsInVzZXJUeXBlIjoiQWRtaW4iLCJpYXQiOjE3MTU1MzcxODB9.JjYEWigP14X1BtPKEcPX-f7TUk6q2RGqGewewMta6Oo"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Deportes Acuáticos\",\n    \"contentPermissions\": [\"ceb1d9a3-2152-446a-b696-cf209b22c5c6\", \"bd4e4146-4105-4398-b1d4-3632b39895a1\", \"c1d49a31-1025-451b-b6b2-9601789371cb\"],\n    \"coverImage\": \"https://dummyimage.com/1920x400/9fa8da/ffffff&text=DA\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/topics",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contents",
+			"item": [
+				{
+					"name": "Find all contents",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI5MDkzNjdjYy02MDU5LTQwNWEtOTRiNS0yZThiYWI4ZTZlYTQiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkB0ZXN0LmNvbSIsInVzZXJUeXBlIjoiQWRtaW4iLCJpYXQiOjE3MTU1MzcxODB9.JjYEWigP14X1BtPKEcPX-f7TUk6q2RGqGewewMta6Oo"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/contents?page=1&limit=20",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"contents"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find all contents by search params",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI5MDkzNjdjYy02MDU5LTQwNWEtOTRiNS0yZThiYWI4ZTZlYTQiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkB0ZXN0LmNvbSIsInVzZXJUeXBlIjoiQWRtaW4iLCJpYXQiOjE3MTU1MzcxODB9.JjYEWigP14X1BtPKEcPX-f7TUk6q2RGqGewewMta6Oo"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/contents?page=1&limit=20&search=Ejemplo",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"contents"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "search",
+									"value": "Ejemplo"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find content by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI5MDkzNjdjYy02MDU5LTQwNWEtOTRiNS0yZThiYWI4ZTZlYTQiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkB0ZXN0LmNvbSIsInVzZXJUeXBlIjoiQWRtaW4iLCJpYXQiOjE3MTU1MzcxODB9.JjYEWigP14X1BtPKEcPX-f7TUk6q2RGqGewewMta6Oo"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/contents/1c3b18c9-783e-46be-8562-7110a5245fc3",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"contents",
+								"1c3b18c9-783e-46be-8562-7110a5245fc3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create content",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4YWI3MGIzMS0wYWY2LTQ3YjMtOWZhNC1kOGE2MTc4ZDkyOTQiLCJ1c2VybmFtZSI6IndhbGRvMjFtIiwiZW1haWwiOiJlZHVhcmRvMjAuMzI2M0BnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkNyZWFkb3IiLCJpYXQiOjE3MTU1NDc2MDd9.UPQfVukuJ8-768iYnV0oHx_PY_gkkA3NtGtM7hfuUIU"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Ejemplo de mi contenido de calidad 1\",\n    \"data\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley\",\n    \"contentType\": \"1b713828-75e0-437e-a04c-ed386adb5737\",\n    \"topic\": \"0c833ea3-7ba6-4c40-8f09-7bfe3cd424f6\",\n    \"createdBy\": \"8ab70b31-0af6-47b3-9fa4-d8a6178d9294\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/contents",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"contents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update content",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIzNjg1MmI0My1mOGU2LTRjODctOWZkMy0zZjdkZDJhMDExNGEiLCJ1c2VybmFtZSI6IndhbGRvMjFtIiwiZW1haWwiOiJlZHVhcmRvMjAuMzI2M0BnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkNyZWFkb3IiLCJpYXQiOjE3MTU1NDQ2MDh9.DfhH3_sDjqvbmr_fk_ebVlSRz_uZ421uc-KJyTr2BbY"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Ejemplo de mi contenido de calidad 3\",\n    \"data\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley\",\n    \"contentType\": \"ceb1d9a3-2152-446a-b696-cf209b22c5c6\",\n    \"topic\": \"85ee0184-a7b5-4b38-ac82-338195cc9826\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/contents/00169b77-e8f0-4455-aafb-d38d6c77971e",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"contents",
+								"00169b77-e8f0-4455-aafb-d38d6c77971e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Soft delete content",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI5MDkzNjdjYy02MDU5LTQwNWEtOTRiNS0yZThiYWI4ZTZlYTQiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkB0ZXN0LmNvbSIsInVzZXJUeXBlIjoiQWRtaW4iLCJpYXQiOjE3MTU1NDU1MjB9.MYbsdDMME5eK8qBpwj0gvVT3eB7DEUHBpFMBiLsMPTg"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/contents/00169b77-e8f0-4455-aafb-d38d6c77971e",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"contents",
+								"00169b77-e8f0-4455-aafb-d38d6c77971e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Destroy content",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI5MDkzNjdjYy02MDU5LTQwNWEtOTRiNS0yZThiYWI4ZTZlYTQiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkB0ZXN0LmNvbSIsInVzZXJUeXBlIjoiQWRtaW4iLCJpYXQiOjE3MTU1NDU1MjB9.MYbsdDMME5eK8qBpwj0gvVT3eB7DEUHBpFMBiLsMPTg"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/api/v1/contents/00169b77-e8f0-4455-aafb-d38d6c77971e/destroy",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"v1",
+								"contents",
+								"00169b77-e8f0-4455-aafb-d38d6c77971e",
+								"destroy"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI3NTFmNzQzZC03YjlkLTQ0MmItODIxZS0zNzRkODIyMDZiMjciLCJ1c2VybmFtZSI6IndhbGRvMjFtIiwiZW1haWwiOiJlZHVhcmRvMjAuMzI2M0BnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkxlY3RvciIsImlhdCI6MTcxNTUyMjk2NX0.Fw3ggCs6eqmUaWV7MCnzTTNIqQpg0vu8ZdqUU4Ke_TY"
+					}
+				],
+				"url": {
+					"raw": "localhost:4000/api/v1/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:4000/api/v1/health",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
