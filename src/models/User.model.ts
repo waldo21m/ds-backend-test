@@ -31,13 +31,6 @@ const UserSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    createdContents: [
-      {
-        type: String,
-        ref: 'Content',
-        trim: true,
-      },
-    ],
     isDeleted: {
       type: Boolean,
       default: false,
