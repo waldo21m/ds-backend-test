@@ -7,7 +7,9 @@ import * as UserService from '../services/user.service';
 
 dotenv.config();
 
-const bcryptSaltRound = process.env.BCRYPT_SALT_ROUNDS ? +process.env.BCRYPT_SALT_ROUNDS : 10;
+const bcryptSaltRound = process.env.BCRYPT_SALT_ROUNDS
+  ? +process.env.BCRYPT_SALT_ROUNDS
+  : 10;
 
 const findAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -29,16 +31,53 @@ const findAll = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const create = async (req: Request, res: Response, next: NextFunction) => {
-  const user = await UserService.findByEmailOrUsername(req.body.email.toLowerCase(), req.body.username.toLowerCase());
-
-  if (user) {
-    return next(boom.badRequest("The user already exists"));
-  }
-
-  req.body.password = await bcrypt.hash(req.body.password, bcryptSaltRound);
-
+const signIn = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    const emailOrUsername = req.body.emailOrUsername.toLowerCase();
+    const user = await UserService.findByEmailOrUsername(
+      emailOrUsername,
+      emailOrUsername,
+    );
+
+    if (!user) {
+      return next(boom.unauthorized("The user doesn't exists"));
+    }
+
+    // Verify the password
+    const rightPassword = await bcrypt.compare(
+      req.body.password,
+      user.password,
+    );
+
+    if (!rightPassword) {
+      return next(boom.unauthorized('Unauthorized'));
+    }
+
+    return res.json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      userType: user.userType,
+      createdContents: user.createdContents,
+    });
+  } catch (error) {
+    next(boom.badImplementation('Failed to sign in'));
+  }
+};
+
+const signUp = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await UserService.findByEmailOrUsername(
+      req.body.email.toLowerCase(),
+      req.body.username.toLowerCase(),
+    );
+
+    if (user) {
+      return next(boom.badRequest('The user already exists'));
+    }
+
+    req.body.password = await bcrypt.hash(req.body.password, bcryptSaltRound);
+
     const newUser = await UserService.create(req.body as IUser);
 
     return res.status(201).json(newUser);
@@ -49,5 +88,6 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 
 export default {
   findAll,
-  create,
+  signIn,
+  signUp,
 };

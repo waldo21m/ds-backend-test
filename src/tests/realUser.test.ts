@@ -5,7 +5,7 @@ import MongoDatabase from '../config/db';
 
 dotenv.config();
 
-const prefix = `${process.env.APP_URI}${process.env.APP_VERSION}`
+const prefix = `${process.env.APP_URI}${process.env.APP_VERSION}`;
 
 describe('User router /users', () => {
   beforeAll((done) => {
