@@ -1,7 +1,7 @@
 <h1 align="center"><b>🤖 Disruptive Studio test back-end</b></h1>
 
 <p align="center">
-  <img src="./src/assets/logo.svg" width="200" alt="Cleverpy Logo" />
+  <img src="./src/assets/logo.svg" width="200" alt="Disruptive Studio Logo" />
 </p>
 
 Resolución de la prueba técnica por parte del equipo técnico de Disruptive Studio, con el objetivo de ampliar el conocimiento sobre las capacidades del entrevistado, así como su manera de trabajar y abarcar la resolución de problemas.
@@ -122,7 +122,7 @@ Los endpoints desarrollados son un MVP para esta prueba.
 <br />
 
 <p align="center">
-  <img src="./src/assets/waldo-avatar.png" width="200" alt="Cleverpy Logo" />
+  <img src="./src/assets/waldo-avatar.png" width="200" alt="Waldo avatar" />
   <h3 align="center">Eduardo Márquez | Ingeniero de Sistemas | Desarrollador Web </h3>
   <h4 align="center">Desarrollado con amor ❤️</h4>
 </p>
