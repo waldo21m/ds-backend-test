@@ -33,7 +33,7 @@ const UserSchema = new mongoose.Schema(
     },
     createdContents: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'Content',
         trim: true,
       },
