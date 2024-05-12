@@ -7,3 +7,7 @@ export interface IUser {
   password: string;
   userType: UserTypes;
 }
+
+export interface IUserWithJWT extends IUser {
+  iat: number;
+}
