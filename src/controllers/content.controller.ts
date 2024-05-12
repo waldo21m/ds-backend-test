@@ -26,6 +26,17 @@ const findAll = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const findById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const contentId = req.params.contentId as string;
+    const content = await ContentService.findById(contentId);
+
+    return res.json({ content });
+  } catch (error) {
+    next(boom.badImplementation('Failed to fetch content by id'));
+  }
+};
+
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (req.user?.userType === UserTypes.Reader) {
@@ -49,5 +60,6 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 
 export default {
   findAll,
+  findById,
   create,
 };
