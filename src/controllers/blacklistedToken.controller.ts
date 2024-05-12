@@ -11,7 +11,7 @@ const logout = async (req: Request, res: Response, next: NextFunction) => {
       await BlacklistedTokenService.create({ token });
     }
 
-    res.status(200).json({ message: 'Logged out successfully' });
+    res.json({ message: 'Logged out successfully' });
   } catch (error) {
     next(boom.badImplementation('Failed to log out'));
   }
