@@ -13,5 +13,4 @@ export const updateSchema = Joi.object({
   data: Joi.string().required(),
   contentType: Joi.string().uuid({ version: 'uuidv4' }),
   topic: Joi.string().uuid({ version: 'uuidv4' }),
-  createdBy: Joi.string().uuid({ version: 'uuidv4' }),
 });

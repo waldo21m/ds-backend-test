@@ -43,15 +43,41 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
       return next(boom.forbidden('Forbidden'));
     }
 
-    const content = await ContentService.findByName(req.body.name);
+    const content = await ContentService.create(req.body as IContent);
 
-    if (content) {
-      return next(boom.badRequest('The content already exists'));
+    res.status(201).json({ content });
+  } catch (error) {
+    console.error(error);
+    next(boom.badImplementation('Failed to create content'));
+  }
+};
+
+const update = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    if (req.user?.userType === UserTypes.Reader) {
+      return next(boom.forbidden('Forbidden'));
     }
 
-    const newContent = await ContentService.create(req.body as IContent);
+    const contentId = req.params.contentId as string;
+    const content = await ContentService.findById(contentId);
 
-    res.status(201).json({ content: newContent });
+    if (!content) {
+      return next(boom.notFound('Content not found'));
+    }
+
+    if (
+      req.user?.userType !== UserTypes.Admin &&
+      req.user?._id !== content.createdBy
+    ) {
+      return next(boom.forbidden('Forbidden'));
+    }
+
+    const updatedContent = await ContentService.update(
+      contentId,
+      req.body as Partial<IContent>,
+    );
+
+    res.json({ content: updatedContent });
   } catch (error) {
     console.error(error);
     next(boom.badImplementation('Failed to create content'));
@@ -62,4 +88,5 @@ export default {
   findAll,
   findById,
   create,
+  update,
 };

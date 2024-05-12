@@ -42,12 +42,6 @@ export const findById = async (id: string) => {
   return content;
 };
 
-export const findByName = async (name: string) => {
-  const content = await Content.findOne({ name, isDeleted: false }).exec();
-
-  return content;
-};
-
 export const create = async (content: IContent) => {
   const newContent = new Content(content);
   const savedContent = await newContent.save();
@@ -56,12 +50,13 @@ export const create = async (content: IContent) => {
 };
 
 export const update = async (id: string, content: Partial<IContent>) => {
-  return Content.updateOne(
+  return Content.findOneAndUpdate(
     {
       _id: id,
       isDeleted: false,
     },
     content,
+    { new: true },
   ).exec();
 };
 
