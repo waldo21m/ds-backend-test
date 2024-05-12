@@ -20,15 +20,15 @@ export const countUsers = async () => {
 };
 
 export const findById = async (id: string) => {
-  const users = await User.findOne({ _id: id, isDeleted: false }).exec();
+  const user = await User.findOne({ _id: id, isDeleted: false }).exec();
 
-  return users;
+  return user;
 };
 
 export const findByEmail = async (email: string) => {
-  const users = await User.findOne({ email, isDeleted: false }).exec();
+  const user = await User.findOne({ email, isDeleted: false }).exec();
 
-  return users;
+  return user;
 };
 
 export const findByEmailOrUsername = async (
