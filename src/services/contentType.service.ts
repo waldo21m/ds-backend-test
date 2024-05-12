@@ -46,6 +46,6 @@ export const softDelete = async (id: string) => {
   return ContentType.updateOne({ _id: id }, { isDeleted: true }).exec();
 };
 
-export const hardDelete = async (id: string) => {
+export const destroy = async (id: string) => {
   return ContentType.deleteOne({ _id: id }).exec();
 };

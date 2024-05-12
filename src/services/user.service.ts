@@ -64,6 +64,6 @@ export const softDelete = async (id: string) => {
   return User.updateOne({ _id: id }, { isDeleted: true }).exec();
 };
 
-export const hardDelete = async (id: string) => {
+export const destroy = async (id: string) => {
   return User.deleteOne({ _id: id }).exec();
 };

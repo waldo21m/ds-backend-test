@@ -11,5 +11,7 @@ router.get('/', queryParamsCheckerMiddleware({ page: false, limit: false, search
 router.get('/:contentId', authenticateJWT, contentController.findById);
 router.post('/', authenticateJWT, validationHandler(createSchema), contentController.create);
 router.put('/:contentId', authenticateJWT, validationHandler(updateSchema), contentController.update);
+router.delete('/:contentId', authenticateJWT, contentController.softDelete);
+router.delete('/:contentId/destroy', authenticateJWT, contentController.destroy);
 
 export default router;

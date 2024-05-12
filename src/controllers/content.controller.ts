@@ -80,7 +80,65 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
     res.json({ content: updatedContent });
   } catch (error) {
     console.error(error);
-    next(boom.badImplementation('Failed to create content'));
+    next(boom.badImplementation('Failed to update content'));
+  }
+};
+
+const softDelete = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    if (req.user?.userType === UserTypes.Reader) {
+      return next(boom.forbidden('Forbidden'));
+    }
+
+    const contentId = req.params.contentId as string;
+    const content = await ContentService.findById(contentId);
+
+    if (!content) {
+      return next(boom.notFound('Content not found'));
+    }
+
+    if (
+      req.user?.userType !== UserTypes.Admin &&
+      req.user?._id !== content.createdBy
+    ) {
+      return next(boom.forbidden('Forbidden'));
+    }
+
+    await ContentService.softDelete(contentId);
+
+    return res.status(204).send();
+  } catch (error) {
+    console.error(error);
+    next(boom.badImplementation('Failed to delete content'));
+  }
+};
+
+const destroy = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    if (req.user?.userType === UserTypes.Reader) {
+      return next(boom.forbidden('Forbidden'));
+    }
+
+    const contentId = req.params.contentId as string;
+    const content = await ContentService.findById(contentId);
+
+    if (!content) {
+      return next(boom.notFound('Content not found'));
+    }
+
+    if (
+      req.user?.userType !== UserTypes.Admin &&
+      req.user?._id !== content.createdBy
+    ) {
+      return next(boom.forbidden('Forbidden'));
+    }
+
+    await ContentService.destroy(contentId);
+
+    return res.status(204).send();
+  } catch (error) {
+    console.error(error);
+    next(boom.badImplementation('Failed to destroy content'));
   }
 };
 
@@ -89,4 +147,6 @@ export default {
   findById,
   create,
   update,
+  softDelete,
+  destroy,
 };
