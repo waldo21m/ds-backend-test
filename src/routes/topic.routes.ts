@@ -8,6 +8,11 @@ import { queryParamsCheckerMiddleware } from '../middlewares/queryParamsChecker.
 const router = Router();
 
 router.get('/', queryParamsCheckerMiddleware({ search: false }), topicController.findAll);
+router.get(
+  '/:topicId/contents',
+  queryParamsCheckerMiddleware({ page: false, limit: false }),
+  topicController.findContentsByTopicId,
+);
 router.post('/', authenticateJWT, validationHandler(createSchema), topicController.create);
 
 export default router;

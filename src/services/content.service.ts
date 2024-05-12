@@ -60,6 +60,34 @@ export const countContentsByUserId = async (userId: string) => {
   return count;
 };
 
+//!SECTION
+export const findContentsByTopicId = async (
+  page: number,
+  limit: number,
+  topicId: string,
+) => {
+  const offset = (page - 1) * limit;
+
+  const contents = await Content.find({
+    topic: topicId,
+    isDeleted: false,
+  })
+    .skip(offset)
+    .limit(limit)
+    .exec();
+
+  return contents;
+};
+
+export const countContentsByTopicId = async (topicId: string) => {
+  const count = await Content.countDocuments({
+    topic: topicId,
+    isDeleted: false,
+  }).exec();
+
+  return count;
+};
+
 export const findById = async (id: string) => {
   const content = await Content.findOne({ _id: id, isDeleted: false }).exec();
 

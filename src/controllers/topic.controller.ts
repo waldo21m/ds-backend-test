@@ -4,6 +4,7 @@ import { UserTypes } from '../utils/userTypes.enum';
 import boom from '@hapi/boom';
 import { ITopic } from '../interfaces/Topic.interface';
 import * as TopicService from '../services/topic.service';
+import * as ContentService from '../services/content.service';
 
 const findAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -13,6 +14,26 @@ const findAll = async (req: Request, res: Response, next: NextFunction) => {
     return res.json({ topics });
   } catch (error) {
     next(boom.badImplementation('Failed to fetch topics'));
+  }
+};
+
+const findContentsByTopicId = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 20;
+    const topicId = req.params.topicId as string
+    const contents = await ContentService.findContentsByTopicId(page, limit, topicId);
+
+    const totalContents = await ContentService.countContentsByTopicId(topicId);
+
+    const totalPages = Math.ceil(totalContents / limit);
+
+    return res.json({
+      contents,
+      totalPages,
+    });
+  } catch (error) {
+    next(boom.badImplementation('Failed to fetch contents by user id'));
   }
 };
 
@@ -39,5 +60,6 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 
 export default {
   findAll,
+  findContentsByTopicId,
   create,
 };
