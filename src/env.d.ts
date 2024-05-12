@@ -10,5 +10,8 @@ declare namespace NodeJS {
     APP_VERSION: string;
     APP_URI: string;
     BCRYPT_SALT_ROUNDS: string;
+    ADMIN_USERNAME: string;
+    ADMIN_EMAIL: string;
+    ADMIN_PASSWORD: string;
   }
 }

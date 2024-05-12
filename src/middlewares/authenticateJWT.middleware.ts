@@ -1,14 +1,16 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import dotenv from 'dotenv';
 import boom from '@hapi/boom';
 import jwt from 'jsonwebtoken';
 import * as BlacklistedTokenService from '../services/blacklistedToken.service';
+import { IUserWithJWT } from '../interfaces/User.interface';
+import { Request } from '../interfaces/RequestExtended.interface';
 
 dotenv.config();
 
 const authenticateJWT = async (
   req: Request,
-  res: Response,
+  _: Response,
   next: NextFunction,
 ) => {
   const authorization = req.headers.authorization;
@@ -27,11 +29,14 @@ const authenticateJWT = async (
         return next(boom.unauthorized('Token not valid'));
       }
 
-      // TODO: Fix this later!
-      // req.user = user;
-      next();
+      if (typeof user === 'object' && user !== null) {
+        req.user = user as Partial<IUserWithJWT>;
+        next();
+      }
     });
   } else {
     next(boom.unauthorized('Token is required'));
   }
 };
+
+export default authenticateJWT;

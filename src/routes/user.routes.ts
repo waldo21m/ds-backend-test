@@ -11,7 +11,7 @@ router.get(
   queryParamsCheckerMiddleware({ page: false, limit: false }),
   userController.findAll,
 );
-router.post('/signIn', validationHandler(signInSchema), userController.signIn);
-router.post('/signUp', validationHandler(signUpSchema), userController.signUp);
+router.post('/sign-in', validationHandler(signInSchema), userController.signIn);
+router.post('/sign-up', validationHandler(signUpSchema), userController.signUp);
 
 export default router;
