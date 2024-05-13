@@ -20,6 +20,10 @@ const port = process.env.PORT;
 // Enable CORS.
 app.use(
   cors({
+    origin: (_, callback) => {
+      callback(null, true);
+    },
+    credentials: true,
     allowedHeaders: [
       'Origin',
       'X-Requested-With',
