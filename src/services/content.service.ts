@@ -13,7 +13,13 @@ export const findAll = async (page: number, limit: number, search: string) => {
     };
   }
 
-  const contents = await Content.find(query).skip(offset).limit(limit).exec();
+  const contents = await Content.find(query)
+    .skip(offset)
+    .limit(limit)
+    .populate('contentType', 'name')
+    .populate('topic', 'name')
+    .populate('createdBy', 'username')
+    .exec();
 
   return contents;
 };
@@ -46,6 +52,9 @@ export const findContentsByUserId = async (
   })
     .skip(offset)
     .limit(limit)
+    .populate('contentType', 'name')
+    .populate('topic', 'name')
+    .populate('createdBy', 'username')
     .exec();
 
   return contents;
@@ -73,6 +82,9 @@ export const findContentsByTopicId = async (
   })
     .skip(offset)
     .limit(limit)
+    .populate('contentType', 'name')
+    .populate('topic', 'name')
+    .populate('createdBy', 'username')
     .exec();
 
   return contents;
@@ -100,6 +112,9 @@ export const findContentsByContentTypeId = async (
   })
     .skip(offset)
     .limit(limit)
+    .populate('contentType', 'name')
+    .populate('topic', 'name')
+    .populate('createdBy', 'username')
     .exec();
 
   return contents;
@@ -129,12 +144,18 @@ export const findContentsByContentTypeIdAndTopicId = async (
   })
     .skip(offset)
     .limit(limit)
+    .populate('contentType', 'name')
+    .populate('topic', 'name')
+    .populate('createdBy', 'username')
     .exec();
 
   return contents;
 };
 
-export const countContentsByContentTypeIdAndTopicId = async (contentTypeId: string, topicId: string) => {
+export const countContentsByContentTypeIdAndTopicId = async (
+  contentTypeId: string,
+  topicId: string,
+) => {
   const count = await Content.countDocuments({
     contentType: contentTypeId,
     topic: topicId,
@@ -145,7 +166,11 @@ export const countContentsByContentTypeIdAndTopicId = async (contentTypeId: stri
 };
 
 export const findById = async (id: string) => {
-  const content = await Content.findOne({ _id: id, isDeleted: false }).exec();
+  const content = await Content.findOne({ _id: id, isDeleted: false })
+    .populate('contentType', 'name')
+    .populate('topic', 'name')
+    .populate('createdBy', 'username')
+    .exec();
 
   return content;
 };
