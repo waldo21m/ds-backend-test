@@ -18,7 +18,7 @@ router.use(prefix + '/users', userRoutes);
 router.use(prefix + '/content-types', contentTypeRoutes);
 router.use(prefix + '/topics', topicRoutes);
 router.use(prefix + '/contents', contentRoutes);
-router.post(prefix + '/check-jwt', authenticateJWT, blacklistedTokenController.checkJWT);
+router.get(prefix + '/check-jwt', authenticateJWT, blacklistedTokenController.checkJWT);
 router.post(prefix + '/logout', blacklistedTokenController.logout);
 router.get(prefix + '/health', healthController.healthCheck);
 
