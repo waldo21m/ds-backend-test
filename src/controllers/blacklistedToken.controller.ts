@@ -2,6 +2,10 @@ import { NextFunction, Request, Response } from 'express';
 import boom from '@hapi/boom';
 import * as BlacklistedTokenService from '../services/blacklistedToken.service';
 
+const checkJWT = async (_: Request, res: Response) => {
+  return res.status(204).send();
+};
+
 const logout = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const authorization = req.headers.authorization;
@@ -18,5 +22,6 @@ const logout = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 export default {
+  checkJWT,
   logout,
 };
